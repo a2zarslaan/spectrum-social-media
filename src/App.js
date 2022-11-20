@@ -1,3 +1,5 @@
+import './App.scss'
+
 import Login from "./pages/login/login.component";
 
 function App() {
