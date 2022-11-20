@@ -1,3 +1,7 @@
+# About
+
+This project is a social media app built using the MERN stack
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
