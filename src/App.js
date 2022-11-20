@@ -1,7 +1,7 @@
 import Login from "./pages/login/login.component";
 import Register from './pages/register/register.component';
 
-import { createBrowserRouter, RouterProvider, Route, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, Outlet, Navigate } from "react-router-dom";
 
 import './App.scss'
 import Navbar from "./components/navbar/navbar.component";
@@ -11,6 +11,8 @@ import Home from "./pages/home/home.component";
 import Profile from "./pages/profile/profile.component"
 
 function App() {
+
+  const currentUser = false;
 
   const Layout = () => {
     return (<div>
@@ -23,10 +25,17 @@ function App() {
     </div>)
   }
 
+  // to check for login
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />
+    }
+    return children;
+  }
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <ProtectedRoute><Layout /></ProtectedRoute>,
       children: [
         {
           path: "/",
