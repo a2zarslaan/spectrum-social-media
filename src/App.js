@@ -3,7 +3,7 @@ import Register from './pages/register/register.component';
 
 import { createBrowserRouter, RouterProvider, Route, Outlet, Navigate } from "react-router-dom";
 
-import './App.scss'
+import './styles.scss'
 import Navbar from "./components/navbar/navbar.component";
 import Leftbar from "./components/leftbar/leftbar.component";
 import Rightbar from "./components/rightbar/rightbar.component";
@@ -15,16 +15,18 @@ function App() {
   const currentUser = true;
 
   const Layout = () => {
-    return (<div>
-      <Navbar />
-      <div style={{display: "flex"}}>
-        <Leftbar />
-        <div style={{flex: 6}}>
-          <Outlet />
+    return (
+      <div className="theme-light">
+        <Navbar />
+        <div style={{display: "flex"}}>
+          <Leftbar />
+          <div style={{flex: 6}}>
+            <Outlet />
+          </div>
+          <Rightbar />
         </div>
-        <Rightbar />
       </div>
-    </div>)
+    )
   }
 
   // to check for login
