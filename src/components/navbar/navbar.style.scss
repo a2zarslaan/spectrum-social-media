@@ -17,7 +17,7 @@
     .left {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 20px;
 
       span {
         font-weight: bold;
@@ -38,6 +38,15 @@
           width: 500px;
           background-color: transparent;
           color: themed("textColor");
+
+          @include mobile {
+            display: none;
+            gap: 20px;
+          }
+
+          @include tablet {
+            width: 200px;
+          }
         }
       }
     }
@@ -47,24 +56,28 @@
       align-items: center;
       gap: 20px;
 
+      @include mobile {
+        display: none;
+      }
+
       .user {
         display: flex;
         align-items: center;
         gap: 10px;
-        font-weight: bold;
+        font-weight: 500;
 
-        img{
+        @include tablet {
+          display: none;
+        }
+
+        img {
           width: 30px;
           height: 30px;
           border-radius: 50%;
           object-fit: cover;
         }
 
-        span {
-
-        }
-
-
+        span {}
       }
     }
   }
