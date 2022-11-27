@@ -1,1 +1,0 @@
-# spectrum-social-media-backend
