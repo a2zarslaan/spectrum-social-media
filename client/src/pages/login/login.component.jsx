@@ -1,39 +1,66 @@
-import { Link } from 'react-router-dom'
-import './login.style.scss'
+import { Link } from 'react-router-dom';
+import './login.style.scss';
 
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 
-
 const Login = () => {
+	const [inputs, setInputs] = useState({
+		username: '',
+		password: '',
+	});
 
-  const { login } = useContext(AuthContext);
+	const [err, setErr] = useState(null);
 
-  const handleLogin = () => {
-    login();
-  }
+	const handleChange = (e) => {
+		setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+	};
 
-  return <div className='login'>
-    <div className="card">
-      <div className="left">
-        <h1>Spec</h1>
-        <h1>Trum.</h1>
-        <p>Come as you are</p>
-        <span>Don't have an account?</span>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>
-      </div>
-      <div className="right">
-        <h1>Welcome back! Login</h1>
-        <form>
-          <input type="text" placeholder='Username' />
-          <input type="password" placeholder='Password' />
-          <button onClick={handleLogin}>Login</button>
-        </form>
-      </div>
-    </div>
-  </div>
-}
+	const { login } = useContext(AuthContext);
 
-export default Login
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			await login(inputs);
+		} catch (err) {
+			setErr(err.response.data);
+		}
+	};
+
+	return (
+		<div className='login'>
+			<div className='card'>
+				<div className='left'>
+					<h1>Spec</h1>
+					<h1>Trum.</h1>
+					<p>Come as you are</p>
+					<span>Don't have an account?</span>
+					<Link to='/register'>
+						<button>Register</button>
+					</Link>
+				</div>
+				<div className='right'>
+					<h1>Welcome back! Login</h1>
+					<form>
+						<input
+							type='text'
+							placeholder='Username'
+							name='username'
+							onChange={handleChange}
+						/>
+						<input
+							type='password'
+							placeholder='Password'
+							name='password'
+							onChange={handleChange}
+						/>
+						{err && err}
+						<button onClick={handleLogin}>Login</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export default Login;
