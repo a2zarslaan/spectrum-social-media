@@ -7,7 +7,7 @@ import likeRoutes from './routes/likes.js';
 import authRoutes from './routes/auth.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-const multer = require('multer');
+import multer from 'multer';
 
 //middlewares
 app.use((req, res, next) => {
@@ -31,12 +31,12 @@ const storage = multer.diskStorage({
 	},
 });
 
+const upload = multer({ storage: storage });
+
 app.post('/api/upload', upload.single('file'), (req, res) => {
 	const file = req.file;
 	res.status(200).json(file.filename);
 });
-
-const upload = multer({ storage: storage });
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
