@@ -1,5 +1,6 @@
 import { db } from '../connect.js';
 import jwt from 'jsonwebtoken';
+import moment from 'moment';
 
 export const getPosts = (req, res) => {
 	const token = req.cookies.accessToken;
@@ -24,11 +25,19 @@ export const addPost = (req, res) => {
 	jwt.verify(token, 'secretkey', (err, userInfo) => {
 		if (err) return res.status(403).json('Token is not valid');
 
-		const q = `INSERT INTO posts ("desc", "img", "createdAt", "userid") VALUES ?`;
+		const q =
+			'INSERT INTO posts (`desc`, `img`, `createdAt`, `userid`) VALUES (?)';
 
-		db.query(q, [userInfo.id, userInfo.id], (err, data) => {
+		const values = [
+			req.body.desc,
+			req.body.img,
+			moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+			userInfo.id,
+		];
+
+		db.query(q, [values], (err, data) => {
 			if (err) return res.status(500).json(err);
-			return res.status(200).json(data);
+			return res.status(200).json('Post has been created');
 		});
 	});
 };
