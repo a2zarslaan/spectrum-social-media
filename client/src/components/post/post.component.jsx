@@ -39,6 +39,7 @@ const Post = ({ post }) => {
 			},
 		}
 	);
+
 	const deleteMutation = useMutation(
 		(postId) => {
 			return makeRequest.delete('/posts/' + postId);
