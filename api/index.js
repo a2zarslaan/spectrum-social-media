@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config();
 import express from 'express';
 const app = express();
 import userRoutes from './routes/users.js';
@@ -46,6 +48,8 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 app.use('/api/relationships', relationshipRoutes);
 
-app.listen(8800, () => {
-	console.log('API working');
+const PORT = process.env.PORT || 8800;
+
+app.listen(PORT, () => {
+	console.log(`API working on ${PORT}`);
 });
